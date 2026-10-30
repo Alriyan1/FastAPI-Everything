@@ -1,4 +1,3 @@
-from enum import _EnumNames
 from uuid import UUID
 from pydantic import BaseModel,EmailStr
 

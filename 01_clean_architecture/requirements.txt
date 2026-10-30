@@ -2,7 +2,7 @@ fastapi
 uvicorn
 sqlalchemy
 alembic
-psycopg2-binary
+psycopg[binary]
 slowapi
 python-dotenv
 pyjwt

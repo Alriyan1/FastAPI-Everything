@@ -21,7 +21,7 @@ ALGORITHM = os.getenv("ALGORITHM")
 ACCESS_TOKEN_EXPIRE_MINUTES = int(os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES"))
 
 oauth2_bearer = OAuth2PasswordBearer(tokenUrl="auth/token")
-bcrypt_context = CryptContext(schemas=['bcrypt'],deprecated='auto')
+bcrypt_context = CryptContext(schemes=['bcrypt'],deprecated='auto')
 
 def verify_passward(plain_password:str,hashed_password:str)->bool:
     return bcrypt_context.verify(plain_password,hashed_password)

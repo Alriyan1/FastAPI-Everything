@@ -1,5 +1,5 @@
 from pydantic import BaseModel,EmailStr
-from uuid importa UUID
+from uuid import UUID
 from datetime import datetime
 
 
@@ -11,6 +11,6 @@ class UserResponse(BaseModel):
     last_name:str
 
 class PasswordChange(BaseModel):
-    current_password=str
-    new_password=str
-    new_password_confirm=str
+    current_password: str
+    new_password: str
+    new_password_confirm: str
