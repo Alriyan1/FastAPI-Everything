@@ -29,7 +29,7 @@ def get_todos(current_user:TokenData,db:Session)->list[model.TodoResponse]:
     return todos
 
 
-def get_todos_by_id(current_user:TokenData,db:Session,todo_id:UUID)->Todo:
+def get_todo_by_id(current_user:TokenData,db:Session,todo_id:UUID)->Todo:
     todo = db.query(Todo).filter(Todo.id == todo_id).filter(Todo.user_id == current_user.get_uuid()).first()
     if not todo:
         logging.warning(f"Todo {todo_id} not found for user {current_user.get_uuid()}")
@@ -43,11 +43,11 @@ def update_todo(current_user:TokenData,db:Session,todo_id:UUID,todo_update:model
     db.query(Todo).filter(Todo.id == todo_id).filter(Todo.user_id == current_user.get_uuid()).update(todo_data)
     db.commit()
     logging.info(f"Successfully updated todo {todo_id} for user {current_user.get_uuid()}")
-    return get_todos_by_id(current_user,db,todo_id)
+    return get_todo_by_id(current_user,db,todo_id)
 
 
 def complete_todo(current_user:TokenData,db:Session,todo_id:UUID) -> Todo:
-    todo = get_todos_by_id(current_user,db,todo_id)
+    todo = get_todo_by_id(current_user,db,todo_id)
     if todo.is_completed:
         logging.debug(f"Todo {todo_id} is already created")
         return todo
@@ -60,7 +60,7 @@ def complete_todo(current_user:TokenData,db:Session,todo_id:UUID) -> Todo:
     return todo
 
 def delete_todo(current_user:TokenData,db:Session,todo_id:UUID)->None:
-    todo = get_todos_by_id(current_user,db,todo_id)
+    todo = get_todo_by_id(current_user,db,todo_id)
     db.delete(todo)
     db.commit()
     logging.info(f"Todo {todo_id} deleted by user {current_user.get_uuid()}")

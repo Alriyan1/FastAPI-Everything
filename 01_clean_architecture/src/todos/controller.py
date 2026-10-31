@@ -24,7 +24,7 @@ def get_todos(db:DbSession,current_user:CurrentUser):
 
 @router.get("/{todo_id}",response_model=model.TodoResponse)
 def get_todo(db:DbSession,todo_id:UUID,current_user:CurrentUser):
-    return service.get_todos_by_id(current_user,db,todo_id)
+    return service.get_todo_by_id(current_user,db,todo_id)
 
 @router.put("/{todo_id}",response_model=model.TodoResponse)
 def update_todo(db:DbSession,todo_id:UUID,todo_update:model.TodoCreate,current_user:CurrentUser):

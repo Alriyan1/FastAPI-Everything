@@ -16,7 +16,7 @@ router = APIRouter(
 def get_current_user(current_user: CurrentUser,db:DbSession):
     return service.get_user_by_id(db,current_user.get_uuid())
 
-@router.put('/change_password',status_code=status.HTTP_200_OK)
+@router.put('/change-password',status_code=status.HTTP_200_OK)
 def change_password(
     password_change:model.PasswordChange,
     db:DbSession,

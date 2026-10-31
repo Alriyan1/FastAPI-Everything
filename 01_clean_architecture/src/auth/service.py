@@ -3,7 +3,7 @@ from typing import Annotated
 from uuid import UUID,uuid4
 from fastapi import Depends
 
-from passlib.context import CryptContext
+import bcrypt
 import jwt
 from jwt import PyJWTError
 from sqlalchemy.orm import Session
@@ -21,13 +21,17 @@ ALGORITHM = os.getenv("ALGORITHM")
 ACCESS_TOKEN_EXPIRE_MINUTES = int(os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES"))
 
 oauth2_bearer = OAuth2PasswordBearer(tokenUrl="auth/token")
-bcrypt_context = CryptContext(schemes=['bcrypt'],deprecated='auto')
+
 
 def verify_passward(plain_password:str,hashed_password:str)->bool:
-    return bcrypt_context.verify(plain_password,hashed_password)
+    try:
+        return bcrypt.checkpw(plain_password.encode('utf-8'), hashed_password.encode('utf-8'))
+    except Exception:
+        return False
 
 def get_password_hash(password:str)->str:
-    return bcrypt_context.hash(password)
+    salt = bcrypt.gensalt()
+    return bcrypt.hashpw(password.encode('utf-8'), salt).decode('utf-8')
 
 def authenticate_user(email:str,password:str,db:Session)->User|bool:
     user = db.query(User).filter(User.email == email).first()
