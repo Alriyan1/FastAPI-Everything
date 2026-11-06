@@ -8,7 +8,7 @@ from sqlalchemy import (
 )
 
 from sqlalchemy.orm import relationship
-from .app.database import Base
+from .database import Base
 from datetime import datetime,timezone
 
 Follow = Table(
@@ -55,7 +55,7 @@ class Like(Base):
     __tablename__ = "likes"
 
     user_id = Column(Integer,ForeignKey("users.id"),primary_key=True)
-    port_id = Column(Integer,ForeignKey("posts.id"),primary_key=True)
+    post_id = Column(Integer,ForeignKey("posts.id"),primary_key=True)
 
     user = relationship("User")
     post = relationship("Post",back_populates="likes")

@@ -17,7 +17,12 @@ def raise_unauthorized_exception(detail:str="Incorrect username or password"):
         headers={"WWW-Authenticate":"Bearer"}
     )
 
-def raise_confict_exception(detail:str="Conflict occurrence"):
-    raise HTTPException(status_code=status.HTTP_409_CONFLICT_OCCUR,detail=detail)
+def raise_conflict_exception(detail: str = "Conflict occurrence"):
+    raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail=detail)
+
+# Alias for backwards compatibility with earlier typo
+raise_confict_exception = raise_conflict_exception
+
+
 
 
