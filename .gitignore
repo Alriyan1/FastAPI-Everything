@@ -22,3 +22,7 @@ envi/
 .pytest_cache/
 .coverage
 htmlcov/
+
+
+#database
+*.db
