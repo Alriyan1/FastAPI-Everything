@@ -26,3 +26,6 @@ htmlcov/
 
 #database
 *.db
+
+
+node_modules
